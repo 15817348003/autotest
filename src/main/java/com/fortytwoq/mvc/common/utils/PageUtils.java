@@ -77,5 +77,17 @@ public class PageUtils implements Serializable {
 	public void setList(List<?> list) {
 		this.list = list;
 	}
+
+	@Override
+	public String toString() {
+		StringBuffer sf = new StringBuffer();
+		sf.append("PageUtils [totalCount=" + totalCount + ", pageSize=" + pageSize + ", totalPage=" + totalPage
+				+ ", currPage=" + currPage + ", list=");
+		for(Object t : list){
+			sf.append(t.toString());
+		}
+		sf.append("]");
+		return sf.toString();
+	}
 	
 }

@@ -250,4 +250,10 @@ public class Project implements Serializable {
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "Project [id=" + id + ", projectName=" + projectName + ", projectCode=" + projectCode + ", enable="
+				+ enable + ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
+	}
 }

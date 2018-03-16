@@ -1,4 +1,6 @@
-CREATE DATABASE springDemo
+CREATE DATABASE springDemo;
+
+use springDemo;
 
 create table user(
 id int  AUTO_INCREMENT  primary key,

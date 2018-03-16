@@ -28,7 +28,7 @@
 				order by ${sidx} ${order}
 			</when>
 			<otherwise>
-				order by user_id desc
+				order by id desc
 			</otherwise>
 		</choose>
 		<if test="offset != null and limit != null">
@@ -45,7 +45,7 @@
 		</where>
 	</select>
 	
-	<select id="queryByUserName" resultType="com.fortytwoq.mvc.model.Project">
+	<select id="queryByProjectName" resultType="com.fortytwoq.mvc.model.Project">
 		select * from project where project_name = #{projectName}
 	</select>
 	
@@ -73,9 +73,10 @@
 	<update id="update" parameterType="com.fortytwoq.mvc.model.Project">
 		update project
 		<set> 
-			<if test="projectName != null">`username` = #{projectName}, </if>
-			<if test="projectCode != null">`password` = #{projectCode}, </if>
+			<if test="projectName != null">`project_name` = #{projectName}, </if>
+			<if test="projectCode != null">`project_code` = #{projectCode}, </if>
 			<if test="enable != null">`enable` = #{enable}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
 			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
 		</set>
 		where id = #{id}
@@ -87,6 +88,10 @@
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>
+	</delete>
+		
+	<delete id="delete">
+		delete from project where id = #{id}
 	</delete>
 
 </mapper>

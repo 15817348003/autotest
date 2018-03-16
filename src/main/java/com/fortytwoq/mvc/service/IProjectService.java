@@ -1,7 +1,9 @@
 package com.fortytwoq.mvc.service;
 
+import java.util.List;
+
+import com.fortytwoq.mvc.common.utils.PageUtils;
 import com.fortytwoq.mvc.model.Project;
-import com.fortytwoq.mvc.model.User;
 
 /**
  * Created by Wilson.Ke
@@ -12,4 +14,13 @@ public interface IProjectService {
 
     public void addProject(Project project);
 
+    public boolean updateProject(Project project);
+    
+    public PageUtils findProjectsByPage(int currentPage);
+    
+    public List<Project> findAllProject();
+    
+    public boolean deleteProjectByKey(Integer projectId);
+    
+    public boolean deleteProjects(List<Integer> projectIds);
 }
