@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fortytwoq.mvc.dao.TestModuleDao">
+<!--  
+  <resultMap id="BaseResultMap" type="com.fortytwoq.mvc.model.TestModule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+    <result column="project_code" property="projectCode" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="update_date" property="updateDate" jdbcType="DATE" />
+  </resultMap>
+  -->
+	<select id="queryObject" resultType="com.fortytwoq.mvc.model.TestModule">
+		select * from test_module where id = #{value}
+	</select>
+	
+	<select id="queryList" resultType="com.fortytwoq.mvc.model.TestModule">
+		select * from test_module 
+		<where>
+			<if test="moduleName != null and moduleName.trim() != ''">
+				and `module_name` like concat('%',#{moduleName},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="queryTotal" resultType="int">
+		select count(*) from test_module
+		<where>
+			<if test="moduleName != null and moduleName.trim() != ''">
+				and `module_name` like concat('%',#{moduleName},'%') 
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryByModuleName" resultType="com.fortytwoq.mvc.model.TestModule">
+		select * from test_module where module_name = #{moduleName}
+	</select>
+	
+	<insert id="save" parameterType="com.fortytwoq.mvc.model.TestModule" useGeneratedKeys="true" keyProperty="id">
+    insert into test_module 
+    (
+    	`id`, 
+     	`module_name`, 
+     	`parent_module_id`, 
+     	`project_id`, 
+      	`type`, 
+     	`sequence`, 
+     	`level`, 
+     	`enable`, 
+      	`create_date`, 
+      	`update_date`
+    )
+    values 
+    (
+    	#{id}, 
+    	#{moduleName},
+    	#{parentModuleId}, 
+        #{projectId}, 
+        #{type}, 
+    	#{sequence},
+    	#{level}, 
+        #{enable}, 
+        #{createDate}, 
+        #{updateDate}
+    )
+	</insert>
+	 
+	<update id="update" parameterType="com.fortytwoq.mvc.model.TestModule">
+		update test_module
+		<set> 
+			<if test="moduleName != null">`module_name` = #{moduleName}, </if>
+			<if test="parentModuleId != null">`parent_module_id` = #{parentModuleId}, </if>
+			<if test="projectId != null">`project_id` = #{projectId}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="sequence != null">`sequence` = #{sequence}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="enable != null">`enable` = #{enable}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	
+	<delete id="deleteBatch">
+		delete from test_module where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+			
+	<delete id="delete">
+		delete from test_module where id = #{id}
+	</delete>
+
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fortytwoq.mvc.dao.TestCaseDao">
+<!--  
+  <resultMap id="BaseResultMap" type="com.fortytwoq.mvc.model.TestCase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="project_name" property="caseName" jdbcType="VARCHAR" />
+    <result column="project_code" property="projectCode" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="update_date" property="updateDate" jdbcType="DATE" />
+  </resultMap>
+  -->
+	<select id="queryObject" resultType="com.fortytwoq.mvc.model.TestCase">
+		select * from test_case where id = #{value}
+	</select>
+	
+	<select id="queryList" resultType="com.fortytwoq.mvc.model.TestCase">
+		select * from test_case 
+		<where>
+			<if test="caseName != null and caseName.trim() != ''">
+				and `case_name` like concat('%',#{caseName},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="queryTotal" resultType="int">
+		select count(*) from test_case
+		<where>
+			<if test="caseName != null and caseName.trim() != ''">
+				and `case_name` like concat('%',#{caseName},'%') 
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryByCaseName" resultType="com.fortytwoq.mvc.model.TestCase">
+		select * from test_case where case_name = #{caseName}
+	</select>
+	
+	<insert id="save" parameterType="com.fortytwoq.mvc.model.TestCase" useGeneratedKeys="true" keyProperty="id">
+    insert into test_case 
+    (
+    	`id`, 
+     	`test_case_id`, 
+     	`test_module_id`, 
+     	`case_name`, 
+      	`menu_module_value`, 
+      	`menu_function_value`,
+      	`class_module_name`,
+      	`class_function_name`,
+      	`enable`,
+      	`create_date`,
+      	`update_date`
+    )
+    values 
+    (
+    	#{id}, 
+    	#{testCaseId},
+    	#{testModuleId}, 
+        #{caseName}, 
+        #{menuModuleValue}, 
+        #{menuFunctionValue}, 
+        #{classModuleName}, 
+        #{classFunctionName}, 
+        #{enable}, 
+        #{createDate}, 
+        #{updateDate}
+    )
+	</insert>
+	 
+	<update id="update" parameterType="com.fortytwoq.mvc.model.TestCase">
+		update test_case
+		<set> 
+			<if test="testCaseId != null">`test_case_id` = #{testCaseId}, </if>
+			<if test="testModuleId != null">`test_module_id` = #{testModuleId}, </if>
+			<if test="caseName != null">`case_name` = #{caseName}, </if>
+			<if test="menuModuleValue != null">`menu_module_value` = #{menuModuleValue}, </if>
+			<if test="menuFunctionValue != null">`menu_function_value` = #{menuFunctionValue}, </if>
+			<if test="classModuleName != null">`class_module_name` = #{classModuleName}, </if>
+			<if test="classFunctionName != null">`class_function_name` = #{classFunctionName}, </if>
+			<if test="enable != null">`enable` = #{enable}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	
+	<delete id="deleteBatch">
+		delete from test_case where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="delete">
+		delete from test_case where id = #{id}
+	</delete>
+</mapper>
