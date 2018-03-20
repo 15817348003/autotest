@@ -31,7 +31,7 @@ public class ProjectController {
             method = RequestMethod.GET,
             produces="application/json;charset=UTF-8")
     public Project findProject(@PathVariable("id") Integer id) {
-        Project project = projectService.getProjectByKey(id);
+        Project project = projectService.getByKey(id);
         return project;
     }
     
@@ -42,7 +42,7 @@ public class ProjectController {
     @ResponseBody
     @RequestMapping(value="/all", method = RequestMethod.GET)
     public List<Project> findAllProject(){
-    	List<Project> projects =projectService.findAllProject();
+    	List<Project> projects =projectService.findAll();
     	return projects;
     }
     
@@ -54,7 +54,7 @@ public class ProjectController {
     @ResponseBody
     @RequestMapping(value="/{currentPage}/list", method = RequestMethod.GET)
     public PageUtils findProjectByPage(@PathVariable("currentPage") Integer currentPage){
-    	return projectService.findProjectsByPage(currentPage);
+    	return projectService.findByPage(currentPage);
     }
     
     @ResponseBody
@@ -68,7 +68,7 @@ public class ProjectController {
     
     @RequestMapping(value = "/add", method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public String addProject(@RequestBody Project project, BindingResult result) {
-        projectService.addProject(project);
+        projectService.add(project);
         return "redirect:/";
     }
     
@@ -79,7 +79,7 @@ public class ProjectController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public String updateProject(@RequestBody Project project){
-    	projectService.updateProject(project);
+    	projectService.update(project);
     	return "redirect:/";
     }
     
@@ -90,7 +90,7 @@ public class ProjectController {
      */
     @RequestMapping(value = "/deletes", method = RequestMethod.DELETE ,produces="application/json;charset=UTF-8")
     public String deleteProjects(@RequestBody List<Integer> projectIds){
-    	projectService.deleteProjects(projectIds);
+    	projectService.deleteByIds(projectIds);
     	return "redirect:/";
     }
     
@@ -101,7 +101,7 @@ public class ProjectController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public String deleteProject(Integer projectId){
-    	projectService.deleteProjectByKey(projectId);
+    	projectService.deleteByKey(projectId);
     	return "redirect:/";
     }
     

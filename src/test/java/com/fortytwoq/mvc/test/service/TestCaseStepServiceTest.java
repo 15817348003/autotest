@@ -38,7 +38,7 @@ public class TestCaseStepServiceTest extends BaseJunit4Test {
 			testCaseStep.setPauseSec(new Date());
 			testCaseStep.setCreateDate(new Date());
 			testCaseStep.setUpdateDate(new Date());
-			testCaseStepService.addTestCaseStep(testCaseStep);
+			testCaseStepService.add(testCaseStep);
 		}
 	}
 	
@@ -47,29 +47,29 @@ public class TestCaseStepServiceTest extends BaseJunit4Test {
 		TestCaseStep testCaseStep = new TestCaseStep();
 		testCaseStep.setId(3);
 		testCaseStep.setStepId("stepId already upadte");
-		boolean result = testCaseStepService.updateTestCaseStep(testCaseStep);
+		boolean result = testCaseStepService.update(testCaseStep);
 		assertTrue(result);
 	}
 	
 	@Test
 	public void getTestCaseStepByKeyTest(){
-		System.out.println("getTestCaseStepByKey : " + testCaseStepService.getTestCaseStepByKey(3).toString());
+		System.out.println("getTestCaseStepByKey : " + testCaseStepService.getByKey(3).toString());
 	}
 	
 	@Test
 	public void deleteTestCaseStepByKeyTest(){
-		assertTrue(testCaseStepService.deleteTestCaseStepByKey(100));
+		assertTrue(testCaseStepService.deleteByKey(100));
 	}
 	
 	@Test
 	public void deleteTestCaseStepsTest(){
 		List<Integer> list = Arrays.asList(95,96,97,98,99);
-		assertTrue(testCaseStepService.deleteTestCaseSteps(list));
+		assertTrue(testCaseStepService.deleteByIds(list));
 	}
 	
 	@Test
 	public void findAllTestCaseStepTest(){
-		List<TestCaseStep> list = testCaseStepService.findAllTestCaseStep();
+		List<TestCaseStep> list = testCaseStepService.findAll();
 		System.out.println("findAllTestCaseStepTest");
 		for(TestCaseStep testCaseStep : list){
 			System.out.println(testCaseStep.toString());
@@ -78,7 +78,7 @@ public class TestCaseStepServiceTest extends BaseJunit4Test {
 	
 	@Test
 	public void findTestCaseStepsByPageTest(){
-		PageUtils page = testCaseStepService.findTestCaseStepsByPage(5);
+		PageUtils page = testCaseStepService.findByPage(5);
 		System.out.println("findTestCaseStepsByPageTest");
 		System.out.println(page);
 		

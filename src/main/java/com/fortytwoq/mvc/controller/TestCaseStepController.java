@@ -32,7 +32,7 @@ public class TestCaseStepController {
 	 */
 	@RequestMapping(value = "/{testCaseStepId}", method = RequestMethod.GET)
 	public TestCaseStep getTestCaseStepById(@PathVariable("testCaseStepId") Integer testCaseStepId){
-		return testCaseStepService.getTestCaseStepByKey(testCaseStepId);
+		return testCaseStepService.getByKey(testCaseStepId);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class TestCaseStepController {
 	 */
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<TestCaseStep> findAllTestCaseStep(){
-		return testCaseStepService.findAllTestCaseStep();
+		return testCaseStepService.findAll();
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class TestCaseStepController {
 	 */
 	@RequestMapping(value = "/{currentPage}/list", method = RequestMethod.GET)
 	public PageUtils findTestCaseStepsByPage(@PathVariable("currentPage") Integer currentPage){
-		return testCaseStepService.findTestCaseStepsByPage(currentPage);
+		return testCaseStepService.findByPage(currentPage);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class TestCaseStepController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addTestCaseStep(@RequestBody TestCaseStep testCaseStep){
-		testCaseStepService.addTestCaseStep(testCaseStep);
+		testCaseStepService.add(testCaseStep);
 		return "redirect:/";
 	}
 	
@@ -72,7 +72,7 @@ public class TestCaseStepController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	public String updateTestCaseStep(@RequestBody TestCaseStep testCaseStep){
-		testCaseStepService.updateTestCaseStep(testCaseStep);
+		testCaseStepService.update(testCaseStep);
 		return "redirect:/";
 	}
 	
@@ -83,7 +83,7 @@ public class TestCaseStepController {
      */
     @RequestMapping(value = "/deletes", method = RequestMethod.DELETE)
     public String deleteTestCaseStep(@RequestBody List<Integer> testCaseStepIds){
-    	testCaseStepService.deleteTestCaseSteps(testCaseStepIds);
+    	testCaseStepService.deleteByIds(testCaseStepIds);
     	return "redirect:/";
     }
     
@@ -94,7 +94,7 @@ public class TestCaseStepController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public String deleteTestCaseStep(Integer testCaseStepId){
-    	testCaseStepService.deleteTestCaseStepByKey(testCaseStepId);
+    	testCaseStepService.deleteByKey(testCaseStepId);
     	return "redirect:/";
     }
 	

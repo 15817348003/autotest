@@ -32,7 +32,7 @@ public class TestCaseController {
 	 */
 	@RequestMapping(value = "/{testCaseId}", method = RequestMethod.GET)
 	public TestCase getTestCaseById(@PathVariable("testCaseId") Integer testCaseId){
-		return testCaseService.getTestCaseByKey(testCaseId);
+		return testCaseService.getByKey(testCaseId);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class TestCaseController {
 	 */
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<TestCase> findAllTestCase(){
-		return testCaseService.findAllTestCase();
+		return testCaseService.findAll();
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class TestCaseController {
 	 */
 	@RequestMapping(value = "/{currentPage}/list", method = RequestMethod.GET)
 	public PageUtils findTestCasesByPage(@PathVariable("currentPage") Integer currentPage){
-		return testCaseService.findTestCasesByPage(currentPage);
+		return testCaseService.findByPage(currentPage);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class TestCaseController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addTestCase(@RequestBody TestCase testCase){
-		testCaseService.addTestCase(testCase);
+		testCaseService.add(testCase);
 		return "redirect:/";
 	}
 	
@@ -72,7 +72,7 @@ public class TestCaseController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	public String updateTestCase(@RequestBody TestCase testCase){
-		testCaseService.updateTestCase(testCase);
+		testCaseService.update(testCase);
 		return "redirect:/";
 	}
 	
@@ -83,7 +83,7 @@ public class TestCaseController {
      */
     @RequestMapping(value = "/deletes", method = RequestMethod.DELETE)
     public String deleteTestCase(@RequestBody List<Integer> testCaseIds){
-    	testCaseService.deleteTestCases(testCaseIds);
+    	testCaseService.deleteByIds(testCaseIds);
     	return "redirect:/";
     }
     
@@ -94,7 +94,7 @@ public class TestCaseController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public String deleteTestCase(Integer testCaseId){
-    	testCaseService.deleteTestCaseByKey(testCaseId);
+    	testCaseService.deleteByKey(testCaseId);
     	return "redirect:/";
     }
 	

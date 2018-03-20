@@ -35,7 +35,7 @@ public class TestCaseServiceTest extends BaseJunit4Test {
 			testCase.setEnable(1);
 			testCase.setCreateDate(new Date());
 			testCase.setUpdateDate(new Date());
-			testCaseService.addTestCase(testCase);
+			testCaseService.add(testCase);
 		}
 	}
 	
@@ -44,29 +44,29 @@ public class TestCaseServiceTest extends BaseJunit4Test {
 		TestCase testCase = new TestCase();
 		testCase.setId(3);
 		testCase.setCaseName("testCase already upadte");
-		boolean result = testCaseService.updateTestCase(testCase);
+		boolean result = testCaseService.update(testCase);
 		assertTrue(result);
 	}
 	
 	@Test
 	public void getTestCaseByKeyTest(){
-		System.out.println("getTestCaseByKey : " + testCaseService.getTestCaseByKey(3).toString());
+		System.out.println("getTestCaseByKey : " + testCaseService.getByKey(3).toString());
 	}
 	
 	@Test
 	public void deleteTestCaseByKeyTest(){
-		assertTrue(testCaseService.deleteTestCaseByKey(100));
+		assertTrue(testCaseService.deleteByKey(100));
 	}
 	
 	@Test
 	public void deleteTestCasesTest(){
 		List<Integer> list = Arrays.asList(95,96,97,98,99);
-		assertTrue(testCaseService.deleteTestCases(list));
+		assertTrue(testCaseService.deleteByIds(list));
 	}
 	
 	@Test
 	public void findAllTestCaseTest(){
-		List<TestCase> list = testCaseService.findAllTestCase();
+		List<TestCase> list = testCaseService.findAll();
 		System.out.println("findAllTestCaseTest");
 		for(TestCase testCase : list){
 			System.out.println(testCase.toString());
@@ -75,7 +75,7 @@ public class TestCaseServiceTest extends BaseJunit4Test {
 	
 	@Test
 	public void findTestCasesByPageTest(){
-		PageUtils page = testCaseService.findTestCasesByPage(5);
+		PageUtils page = testCaseService.findByPage(5);
 		System.out.println("findTestCasesByPageTest");
 		System.out.println(page);
 		

@@ -2,16 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.fortytwoq.mvc.dao.ProjectDao">
-<!--  
-  <resultMap id="BaseResultMap" type="com.fortytwoq.mvc.model.Project" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
-    <result column="project_code" property="projectCode" jdbcType="VARCHAR" />
-    <result column="enable" property="enable" jdbcType="INTEGER" />
-    <result column="create_date" property="createDate" jdbcType="DATE" />
-    <result column="update_date" property="updateDate" jdbcType="DATE" />
-  </resultMap>
-  -->
+	<resultMap id="ProjectResultMap" type="com.fortytwoq.mvc.model.Project" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="project_name" property="projectName" jdbcType="VARCHAR" />
+		<result column="project_code" property="projectCode" jdbcType="VARCHAR" />
+		<result column="enable" property="enable" jdbcType="INTEGER" />
+		<result column="create_date" property="createDate" jdbcType="DATE" />
+		<result column="update_date" property="updateDate" jdbcType="DATE" />
+		<collection property="testModules" ofType="com.fortytwoq.mvc.model.TestModule">
+			<id column="tm_id" property="id" jdbcType="INTEGER" />
+			<result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+			<result column="parent_module_id" property="parentModuleId" jdbcType="INTEGER" />
+			<result column="project_id" property="projectId" jdbcType="INTEGER" />
+			<result column="type" property="type" jdbcType="VARCHAR" />
+			<result column="sequence" property="sequence" jdbcType="VARCHAR" />
+			<result column="level" property="level" jdbcType="INTEGER" />
+			<result column="tm_enable" property="enable" jdbcType="INTEGER" />
+			<result column="tm_create_date" property="createDate" jdbcType="DATE" />
+			<result column="tm_update_date" property="updateDate" jdbcType="DATE" />
+			<collection property="testCases" ofType="com.fortytwoq.mvc.model.TestCases">
+				<id column="tc_id" property="id" jdbcType="INTEGER" />
+				<result column="case_id" property="testCaseId" jdbcType="VARCHAR" />
+				<result column="test_module_id" property="testModuleId" jdbcType="INTEGER" />
+				<result column="case_name" property="caseName" jdbcType="VARCHAR" />
+				<result column="menu_module_value" property="menuModuleValue" jdbcType="VARCHAR" />
+				<result column="menu_function_value" property="menuFunctionValue" jdbcType="VARCHAR" />
+				<result column="class_module_name" property="classModuleName" jdbcType="VARCHAR" />
+				<result column="class_function_name" property="classFunctionName" jdbcType="VARCHAR" />
+				<result column="tc_enable" property="enable" jdbcType="INTEGER" />
+				<result column="tc_create_date" property="createDate" jdbcType="DATE" />
+				<result column="tc_update_date" property="updateDate" jdbcType="DATE" />
+				<collection property="testCaseSteps" ofType="com.fortytwoq.mvc.model.TestCasesStep">
+					<id column="tcs_id" property="id" jdbcType="INTEGER" />
+					<result column="test_case_id" property="testCaseId" jdbcType="INTEGER" />
+					<result column="sub_step" property="subStep" jdbcType="INTEGER" />
+					<result column="step_type" property="stepType" jdbcType="INTEGER" />
+					<result column="step_id" property="stepId" jdbcType="VARCHAR" />
+					<result column="seq" property="seq" jdbcType="VARCHAR" />
+					<result column="wait_element_located" property="waitElementLocated" jdbcType="VARCHAR" />
+					<result column="element_xpth" property="elementXpth" jdbcType="VARCHAR" />
+					<result column="element_action" property="elementAction" jdbcType="VARCHAR" />
+					<result column="clean" property="clean" jdbcType="VARCHAR" />
+					<result column="element_value" property="elementValue" jdbcType="VARCHAR" />
+					<result column="pause_sec" property="pauseSec" jdbcType="DATE" />
+					<result column="tcs_create_date" property="createDate" jdbcType="DATE" />
+					<result column="tcs_update_date" property="updateDate" jdbcType="DATE" />
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+  
+	<select id="testQuery" resultMap="ProjectResultMap">
+  		select p.*, 
+  		tm.*, tm.id tm_id, tm.enable tm_enable, tm.create_date tm_create_date, tm.update_date tm_update_date
+  		tc.*, tc.id tc_id, tc.enable tc_enable, tc.create_date tc_create_date, tc.update_date tc_update_date
+  		tcs.*, tcs.id tcs_id, tcs.create_date tcs_create_date, tcs.update_date tcs_update_date from project p 
+  		left join test_module tm on p.id = tm.project_id 
+  		left join test_case tc on tm.id = tc.test_module_id
+  		left join test_case_step tcs on tc.id = tcs.test_case_id
+  		where p.id = 55
+	</select>
 	<select id="queryObject" resultType="com.fortytwoq.mvc.model.Project">
 		select * from project where id = #{value}
 	</select>

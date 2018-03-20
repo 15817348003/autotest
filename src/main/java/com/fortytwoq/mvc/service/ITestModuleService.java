@@ -10,8 +10,8 @@ import com.fortytwoq.mvc.model.TestModule;
  * @author cat
  *
  */
-public interface ITestModuleService {
-	public TestModule getTestModuleByKey(Integer testModuleId);
+public interface ITestModuleService extends IBaseService<TestModule> {
+/*	public TestModule getTestModuleByKey(Integer testModuleId);
 	
 	public List<TestModule> findAllTestModule();
 	
@@ -23,5 +23,5 @@ public interface ITestModuleService {
 	
 	public boolean deleteTestModuleByKey(Integer testModuleId);
 	
-	public boolean deleteTestModules(List<Integer> tstModuleIds);
+	public boolean deleteTestModules(List<Integer> tstModuleIds);*/
 }

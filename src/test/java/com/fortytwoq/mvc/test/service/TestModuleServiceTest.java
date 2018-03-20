@@ -35,7 +35,7 @@ public class TestModuleServiceTest extends BaseJunit4Test {
 			testModule.setEnable(1);
 			testModule.setCreateDate(new Date());
 			testModule.setUpdateDate(new Date());
-			testModuleService.addTestModule(testModule);
+			testModuleService.add(testModule);
 		}
 	}
 	
@@ -44,29 +44,29 @@ public class TestModuleServiceTest extends BaseJunit4Test {
 		TestModule testModule = new TestModule();
 		testModule.setId(30);
 		testModule.setModuleName("testModule already upadte");
-		boolean result = testModuleService.updateTestModule(testModule);
+		boolean result = testModuleService.update(testModule);
 		assertTrue(result);
 	}
 	
 	@Test
 	public void getTestModuleByKeyTest(){
-		System.out.println("getTestModuleByKey : " + testModuleService.getTestModuleByKey(80).toString());
+		System.out.println("getTestModuleByKey : " + testModuleService.getByKey(80).toString());
 	}
 	
 	@Test
 	public void deleteTestModuleByKeyTest(){
-		assertTrue(testModuleService.deleteTestModuleByKey(100));
+		assertTrue(testModuleService.deleteByKey(100));
 	}
 	
 	@Test
 	public void deleteTestModulesTest(){
 		List<Integer> list = Arrays.asList(95,96,97,98,99);
-		assertTrue(testModuleService.deleteTestModules(list));
+		assertTrue(testModuleService.deleteByIds(list));
 	}
 	
 	@Test
 	public void findAllTestModuleTest(){
-		List<TestModule> list = testModuleService.findAllTestModule();
+		List<TestModule> list = testModuleService.findAll();
 		System.out.println("findAllTestModuleTest");
 		for(TestModule testModule : list){
 			System.out.println(testModule.toString());
@@ -75,7 +75,7 @@ public class TestModuleServiceTest extends BaseJunit4Test {
 	
 	@Test
 	public void findTestModulesByPageTest(){
-		PageUtils page = testModuleService.findTestModulesByPage(5);
+		PageUtils page = testModuleService.findByPage(5);
 		System.out.println("findTestModulesByPageTest");
 		System.out.println(page);
 		

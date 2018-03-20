@@ -7,4 +7,6 @@ import com.fortytwoq.mvc.model.Project;
 @Mapper
 public interface ProjectDao extends BaseDao<Project> {
 	Project queryByProjectName(String projectName);	
+	
+	Project testQuery();
 }

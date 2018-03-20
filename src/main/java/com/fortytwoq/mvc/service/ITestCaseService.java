@@ -10,8 +10,8 @@ import com.fortytwoq.mvc.model.TestCase;
  * @author cat
  *
  */
-public interface ITestCaseService {
-	public TestCase getTestCaseByKey(Integer testCaseId);
+public interface ITestCaseService extends IBaseService<TestCase> {
+/*	public TestCase getTestCaseByKey(Integer testCaseId);
 	
 	public List<TestCase> findAllTestCase();
 	
@@ -23,5 +23,5 @@ public interface ITestCaseService {
 	
 	public boolean deleteTestCaseByKey(int testCaseId);
 	
-	public boolean deleteTestCases(List<Integer> tstModuleIds);
+	public boolean deleteTestCases(List<Integer> tstModuleIds);*/
 }

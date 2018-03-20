@@ -8,9 +8,9 @@ import com.fortytwoq.mvc.model.Project;
 /**
  * Created by Wilson.Ke
  */
-public interface IProjectService {
+public interface IProjectService extends IBaseService<Project> {
 
-    public Project getProjectByKey(Integer projectId);
+/*    public Project getProjectByKey(Integer projectId);
 
     public void addProject(Project project);
 
@@ -22,5 +22,7 @@ public interface IProjectService {
     
     public boolean deleteProjectByKey(Integer projectId);
     
-    public boolean deleteProjects(List<Integer> projectIds);
+    public boolean deleteProjects(List<Integer> projectIds);*/
+	
+	public Project testQuery();
 }

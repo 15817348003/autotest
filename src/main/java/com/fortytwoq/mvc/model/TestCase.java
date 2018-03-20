@@ -1,6 +1,7 @@
 package com.fortytwoq.mvc.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class TestCase {
     private Integer id;
@@ -24,8 +25,19 @@ public class TestCase {
     private Date createDate;
 
     private Date updateDate;
+    
+    private List<TestCaseStep> testCaseSteps;
+    
 
-    public Integer getId() {
+    public List<TestCaseStep> getTestCaseSteps() {
+		return testCaseSteps;
+	}
+
+	public void setTestCaseSteps(List<TestCaseStep> testCaseSteps) {
+		this.testCaseSteps = testCaseSteps;
+	}
+
+	public Integer getId() {
         return id;
     }
 

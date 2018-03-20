@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fortytwoq.mvc.common.utils.PageUtils;
 import com.fortytwoq.mvc.model.Project;
+import com.fortytwoq.mvc.model.TestModule;
 import com.fortytwoq.mvc.service.impl.ProjectService;
 import com.fortytwoq.mvc.test.BaseJunit4Test;
-@Ignore
 public class ProjectServiceTest extends BaseJunit4Test {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class ProjectServiceTest extends BaseJunit4Test {
 			project.setEnable(1);
 			project.setCreateDate(new Date());
 			project.setUpdateDate(new Date());
-			projectService.addProject(project);
+			projectService.add(project);
 		}
 	}
 	
@@ -41,30 +41,30 @@ public class ProjectServiceTest extends BaseJunit4Test {
 		Project project = new Project();
 		project.setId(3);
 		project.setProjectName("project already upadte");
-		boolean result = projectService.updateProject(project);
+		boolean result = projectService.update(project);
 		assertTrue(result);
 	}
 	
 	@Test
 	public void getProjectByKeyTest(){
-		System.out.println("getProjectByKey : " + projectService.getProjectByKey(3).toString());
+		System.out.println("getProjectByKey : " + projectService.getByKey(3).toString());
 	}
 	
 	@Test
 	public void deleteProjectByKeyTest(){
-		assertTrue(projectService.deleteProjectByKey(80));
+		assertTrue(projectService.deleteByKey(80));
 	}
 	
 	@Test
 	@Ignore
 	public void deleteProjectsTest(){
 		List<Integer> list = Arrays.asList(95,96,97,98,99,100);
-		assertTrue(projectService.deleteProjects(list));
+		assertTrue(projectService.deleteByIds(list));
 	}
 	
 	@Test
 	public void findAllProjectTest(){
-		List<Project> list = projectService.findAllProject();
+		List<Project> list = projectService.findAll();
 		System.out.println("findAllProjectTest");
 		for(Project project : list){
 			System.out.println(project.toString());
@@ -73,7 +73,7 @@ public class ProjectServiceTest extends BaseJunit4Test {
 	
 	@Test
 	public void findProjectsByPageTest(){
-		PageUtils page = projectService.findProjectsByPage(5);
+		PageUtils page = projectService.findByPage(2);
 		System.out.println("findProjectsByPageTest");
 		System.out.println(page);
 		
@@ -82,5 +82,14 @@ public class ProjectServiceTest extends BaseJunit4Test {
 		for(Project project : list){
 			System.out.println(project.toString());
 		}
+	}
+	
+	@Test
+	public void testQueryTest(){
+		Project project = projectService.testQuery();
+		for(TestModule module : project.getTestModules()){
+			System.out.println(module.toString());
+		}
+		System.out.println(project);
 	}
 }

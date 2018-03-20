@@ -32,7 +32,7 @@ public class TestModuleController {
 	 */
 	@RequestMapping(value = "/{testModuleId}", method = RequestMethod.GET)
 	public TestModule getTestModuleById(@PathVariable("testModuleId") Integer testModuleId){
-		return testModuleService.getTestModuleByKey(testModuleId);
+		return testModuleService.getByKey(testModuleId);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class TestModuleController {
 	 */
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<TestModule> findAllTestModule(){
-		return testModuleService.findAllTestModule();
+		return testModuleService.findAll();
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class TestModuleController {
 	 */
 	@RequestMapping(value = "/{currentPage}/list", method = RequestMethod.GET)
 	public PageUtils findTestModulesByPage(@PathVariable("currentPage") Integer currentPage){
-		return testModuleService.findTestModulesByPage(currentPage);
+		return testModuleService.findByPage(currentPage);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class TestModuleController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addTestModule(@RequestBody TestModule testModule){
-		testModuleService.addTestModule(testModule);
+		testModuleService.add(testModule);
 		return "redirect:/";
 	}
 	
@@ -72,7 +72,7 @@ public class TestModuleController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	public String updateTestModule(@RequestBody TestModule testModule){
-		testModuleService.updateTestModule(testModule);
+		testModuleService.update(testModule);
 		return "redirect:/";
 	}
 	
@@ -83,7 +83,7 @@ public class TestModuleController {
      */
     @RequestMapping(value = "/deletes", method = RequestMethod.DELETE)
     public String deleteTestModule(@RequestBody List<Integer> testModuleIds){
-    	testModuleService.deleteTestModules(testModuleIds);
+    	testModuleService.deleteByIds(testModuleIds);
     	return "redirect:/";
     }
     
@@ -94,7 +94,7 @@ public class TestModuleController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public String deleteTestModule(Integer testModuleId){
-    	testModuleService.deleteTestModuleByKey(testModuleId);
+    	testModuleService.deleteByKey(testModuleId);
     	return "redirect:/";
     }
 	
