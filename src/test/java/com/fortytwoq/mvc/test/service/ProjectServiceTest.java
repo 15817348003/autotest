@@ -60,6 +60,7 @@ public class ProjectServiceTest extends BaseJunit4Test {
 	public void deleteProjectsTest(){
 		List<Integer> list = Arrays.asList(95,96,97,98,99,100);
 		assertTrue(projectService.deleteByIds(list));
+		
 	}
 	
 	@Test
