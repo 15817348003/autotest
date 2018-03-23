@@ -1,6 +1,7 @@
 package com.fortytwoq.mvc.controller;
 
 import com.fortytwoq.mvc.common.utils.PageUtils;
+import com.fortytwoq.mvc.common.utils.R;
 import com.fortytwoq.mvc.model.Project;
 import com.fortytwoq.mvc.service.IProjectService;
 
@@ -41,9 +42,9 @@ public class ProjectController {
      */
     @ResponseBody
     @RequestMapping(value="/all", method = RequestMethod.GET)
-    public List<Project> findAllProject(){
+    public R findAllProject(){
     	List<Project> projects =projectService.findAll();
-    	return projects;
+    	return R.ok().put("projects", projects);
     }
     
     /**
