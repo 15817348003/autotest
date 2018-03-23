@@ -27,7 +27,7 @@
 			</otherwise>
 		</choose>
 		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+			limit #{limit} OFFSET #{offset}
 		</if>
 	</select>
 	
@@ -38,24 +38,22 @@
 	<insert id="save" parameterType="com.fortytwoq.mvc.model.TestCaseStep" useGeneratedKeys="true" keyProperty="id">
     insert into test_case_step 
     (
-    	`id`, 
-     	`test_case_id`, 
-     	`sub_step`, 
-     	`step_type`, 
-      	`step_id`, 
-     	`seq`, 
-     	`wait_element_located`, 
-     	`element_xpth`, 
-      	`element_action`, 
-     	`clean`, 
-     	`element_value`, 
-     	`pause_sec`, 
-      	`create_date`, 
-      	`update_date`
+     	test_case_id, 
+     	sub_step, 
+     	step_type, 
+      	step_id, 
+     	seq, 
+     	wait_element_located, 
+     	element_xpth, 
+      	element_action, 
+     	clean, 
+     	element_value, 
+     	pause_sec, 
+      	create_date, 
+      	update_date
     )
     values 
     (
-    	#{id}, 
     	#{testCaseId},
     	#{subStep}, 
         #{stepType}, 
@@ -75,19 +73,19 @@
 	<update id="update" parameterType="com.fortytwoq.mvc.model.TestCaseStep">
 		update test_case_step
 		<set> 
-			<if test="testCaseId != null">`test_case_id` = #{testCaseId}, </if>
-			<if test="subStep != null">`sub_step` = #{subStep}, </if>
-			<if test="stepType != null">`step_type` = #{stepType}, </if>
-			<if test="stepId != null">`step_id` = #{stepId}, </if>
-			<if test="seq != null">`seq` = #{seq}, </if>
-			<if test="waitElementLocated != null">`wait_element_located` = #{waitElementLocated}, </if>
-			<if test="elementXpth != null">`element_xpth` = #{elementXpth}, </if>
-			<if test="elementAction != null">`element_action` = #{elementAction}, </if>
-			<if test="clean != null">`clean` = #{clean}, </if>
-			<if test="elementValue != null">`element_value` = #{elementValue}, </if>
-			<if test="pauseSec != null">`pause_sec` = #{pauseSec}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="testCaseId != null">test_case_id = #{testCaseId}, </if>
+			<if test="subStep != null">sub_step = #{subStep}, </if>
+			<if test="stepType != null">step_type = #{stepType}, </if>
+			<if test="stepId != null">step_id = #{stepId}, </if>
+			<if test="seq != null">seq = #{seq}, </if>
+			<if test="waitElementLocated != null">wait_element_located = #{waitElementLocated}, </if>
+			<if test="elementXpth != null">element_xpth = #{elementXpth}, </if>
+			<if test="elementAction != null">element_action = #{elementAction}, </if>
+			<if test="clean != null">clean = #{clean}, </if>
+			<if test="elementValue != null">element_value = #{elementValue}, </if>
+			<if test="pauseSec != null">pause_sec = #{pauseSec}, </if>
+			<if test="createDate != null">create_date = #{createDate}, </if>
+			<if test="updateDate != null">update_date = #{updateDate}, </if>
 		</set>
 		where id = #{id}
 	</update>

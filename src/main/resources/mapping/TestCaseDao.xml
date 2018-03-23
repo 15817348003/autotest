@@ -20,7 +20,7 @@
 		select * from test_case 
 		<where>
 			<if test="caseName != null and caseName.trim() != ''">
-				and `case_name` like concat('%',#{caseName},'%') 
+				and case_name like concat('%',#{caseName},'%') 
 			</if>
 		</where>
 		<choose>
@@ -32,7 +32,7 @@
 			</otherwise>
 		</choose>
 		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+			limit #{limit} OFFSET #{offset}
 		</if>
 	</select>
 	
@@ -40,7 +40,7 @@
 		select count(*) from test_case
 		<where>
 			<if test="caseName != null and caseName.trim() != ''">
-				and `case_name` like concat('%',#{caseName},'%') 
+				and case_name like concat('%',#{caseName},'%') 
 			</if>
 		</where>
 	</select>
@@ -52,21 +52,19 @@
 	<insert id="save" parameterType="com.fortytwoq.mvc.model.TestCase" useGeneratedKeys="true" keyProperty="id">
     insert into test_case 
     (
-    	`id`, 
-     	`test_case_id`, 
-     	`test_module_id`, 
-     	`case_name`, 
-      	`menu_module_value`, 
-      	`menu_function_value`,
-      	`class_module_name`,
-      	`class_function_name`,
-      	`enable`,
-      	`create_date`,
-      	`update_date`
+     	test_case_id, 
+     	test_module_id, 
+     	case_name, 
+      	menu_module_value, 
+      	menu_function_value,
+      	class_module_name,
+      	class_function_name,
+      	enable,
+      	create_date,
+      	update_date
     )
     values 
     (
-    	#{id}, 
     	#{testCaseId},
     	#{testModuleId}, 
         #{caseName}, 
@@ -83,16 +81,16 @@
 	<update id="update" parameterType="com.fortytwoq.mvc.model.TestCase">
 		update test_case
 		<set> 
-			<if test="testCaseId != null">`test_case_id` = #{testCaseId}, </if>
-			<if test="testModuleId != null">`test_module_id` = #{testModuleId}, </if>
-			<if test="caseName != null">`case_name` = #{caseName}, </if>
-			<if test="menuModuleValue != null">`menu_module_value` = #{menuModuleValue}, </if>
-			<if test="menuFunctionValue != null">`menu_function_value` = #{menuFunctionValue}, </if>
-			<if test="classModuleName != null">`class_module_name` = #{classModuleName}, </if>
-			<if test="classFunctionName != null">`class_function_name` = #{classFunctionName}, </if>
-			<if test="enable != null">`enable` = #{enable}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="testCaseId != null">test_case_id = #{testCaseId}, </if>
+			<if test="testModuleId != null">test_module_id = #{testModuleId}, </if>
+			<if test="caseName != null">case_name = #{caseName}, </if>
+			<if test="menuModuleValue != null">menu_module_value = #{menuModuleValue}, </if>
+			<if test="menuFunctionValue != null">menu_function_value = #{menuFunctionValue}, </if>
+			<if test="classModuleName != null">class_module_name = #{classModuleName}, </if>
+			<if test="classFunctionName != null">class_function_name = #{classFunctionName}, </if>
+			<if test="enable != null">enable = #{enable}, </if>
+			<if test="createDate != null">create_date = #{createDate}, </if>
+			<if test="updateDate != null">update_date = #{updateDate}, </if>
 		</set>
 		where id = #{id}
 	</update>

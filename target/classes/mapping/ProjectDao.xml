@@ -20,7 +20,7 @@
 			<result column="tm_enable" property="enable" jdbcType="INTEGER" />
 			<result column="tm_create_date" property="createDate" jdbcType="DATE" />
 			<result column="tm_update_date" property="updateDate" jdbcType="DATE" />
-			<collection property="testCases" ofType="com.fortytwoq.mvc.model.TestCases">
+			<collection property="testCases" ofType="com.fortytwoq.mvc.model.TestCase">
 				<id column="tc_id" property="id" jdbcType="INTEGER" />
 				<result column="case_id" property="testCaseId" jdbcType="VARCHAR" />
 				<result column="test_module_id" property="testModuleId" jdbcType="INTEGER" />
@@ -32,9 +32,9 @@
 				<result column="tc_enable" property="enable" jdbcType="INTEGER" />
 				<result column="tc_create_date" property="createDate" jdbcType="DATE" />
 				<result column="tc_update_date" property="updateDate" jdbcType="DATE" />
-				<collection property="testCaseSteps" ofType="com.fortytwoq.mvc.model.TestCasesStep">
+				<collection property="testCaseSteps" ofType="com.fortytwoq.mvc.model.TestCaseStep">
 					<id column="tcs_id" property="id" jdbcType="INTEGER" />
-					<result column="test_case_id" property="testCaseId" jdbcType="INTEGER" />
+					<result column="tcs_test_case_id" property="testCaseId" jdbcType="INTEGER" />
 					<result column="sub_step" property="subStep" jdbcType="INTEGER" />
 					<result column="step_type" property="stepType" jdbcType="INTEGER" />
 					<result column="step_id" property="stepId" jdbcType="VARCHAR" />
@@ -54,23 +54,24 @@
   
 	<select id="testQuery" resultMap="ProjectResultMap">
   		select p.*, 
-  		tm.*, tm.id tm_id, tm.enable tm_enable, tm.create_date tm_create_date, tm.update_date tm_update_date
-  		tc.*, tc.id tc_id, tc.enable tc_enable, tc.create_date tc_create_date, tc.update_date tc_update_date
-  		tcs.*, tcs.id tcs_id, tcs.create_date tcs_create_date, tcs.update_date tcs_update_date from project p 
+  		tm.*, tm.id tm_id, tm.enable tm_enable, tm.create_date tm_create_date, tm.update_date tm_update_date,
+  		tc.*, tc.id tc_id, tc.enable tc_enable, tc.create_date tc_create_date, tc.update_date tc_update_date,
+  		tcs.*, tcs.id tcs_id, tcs.test_case_id tcs_test_case_id, tcs.create_date tcs_create_date, tcs.update_date tcs_update_date 
+  		from project p 
   		left join test_module tm on p.id = tm.project_id 
   		left join test_case tc on tm.id = tc.test_module_id
   		left join test_case_step tcs on tc.id = tcs.test_case_id
-  		where p.id = 55
+  		where p.id = 30
 	</select>
 	<select id="queryObject" resultType="com.fortytwoq.mvc.model.Project">
-		select * from project where id = #{value}
+		select * from project where id = #{id}
 	</select>
 	
 	<select id="queryList" resultType="com.fortytwoq.mvc.model.Project">
 		select * from project 
 		<where>
 			<if test="projectName != null and projectName.trim() != ''">
-				and `project_name` like concat('%',#{projectName},'%') 
+				and project_name like concat('%',#{projectName},'%') 
 			</if>
 		</where>
 		<choose>
@@ -82,7 +83,7 @@
 			</otherwise>
 		</choose>
 		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+			limit #{limit} OFFSET #{offset}
 		</if>
 	</select>
 	
@@ -90,7 +91,7 @@
 		select count(*) from project
 		<where>
 			<if test="projectName != null and projectName.trim() != ''">
-				and `project_name` like concat('%',#{projectName},'%') 
+				and project_name like concat('%',#{projectName},'%') 
 			</if>
 		</where>
 	</select>
@@ -102,16 +103,14 @@
 	<insert id="save" parameterType="com.fortytwoq.mvc.model.Project" useGeneratedKeys="true" keyProperty="id">
     insert into project 
     (
-    	`id`, 
-     	`project_name`, 
-     	`project_code`, 
-     	`enable`, 
-      	`create_date`, 
-      	`update_date`
+     	project_name, 
+     	project_code, 
+     	enable, 
+      	create_date, 
+      	update_date
     )
     values 
     (
-    	#{id}, 
     	#{projectName},
     	#{projectCode}, 
         #{enable}, 
@@ -123,11 +122,11 @@
 	<update id="update" parameterType="com.fortytwoq.mvc.model.Project">
 		update project
 		<set> 
-			<if test="projectName != null">`project_name` = #{projectName}, </if>
-			<if test="projectCode != null">`project_code` = #{projectCode}, </if>
-			<if test="enable != null">`enable` = #{enable}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="projectName != null">project_name = #{projectName}, </if>
+			<if test="projectCode != null">project_code = #{projectCode}, </if>
+			<if test="enable != null">enable = #{enable}, </if>
+			<if test="createDate != null">create_date = #{createDate}, </if>
+			<if test="updateDate != null">update_date = #{updateDate}, </if>
 		</set>
 		where id = #{id}
 	</update>

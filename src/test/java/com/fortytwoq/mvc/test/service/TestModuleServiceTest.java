@@ -15,7 +15,7 @@ import com.fortytwoq.mvc.model.TestModule;
 import com.fortytwoq.mvc.service.impl.TestModuleService;
 import com.fortytwoq.mvc.test.BaseJunit4Test;
 
-@Ignore
+//@Ignore
 public class TestModuleServiceTest extends BaseJunit4Test {
 
 	@Autowired
@@ -28,7 +28,7 @@ public class TestModuleServiceTest extends BaseJunit4Test {
 			TestModule testModule = new TestModule();
 			testModule.setModuleName("moduleName" + i);
 			testModule.setParentModuleId(i % 5);
-			testModule.setProjectId(55);
+			testModule.setProjectId(30);
 			testModule.setType("type" + i);
 			testModule.setSequence("sequence" + i);
 			testModule.setLevel(i % 5);

@@ -36,7 +36,7 @@ public class ProjectServiceTest extends BaseJunit4Test {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void updateProjectTest(){
 		Project project = new Project();
 		project.setId(3);
@@ -47,18 +47,19 @@ public class ProjectServiceTest extends BaseJunit4Test {
 	
 	@Test
 	public void getProjectByKeyTest(){
-		System.out.println("getProjectByKey : " + projectService.getByKey(3).toString());
+		Project project = projectService.getByKey(3);
+		System.out.println("getProjectByKey : " + project.toString());
 	}
 	
 	@Test
 	public void deleteProjectByKeyTest(){
-		assertTrue(projectService.deleteByKey(80));
+		assertTrue(projectService.deleteByKey(5));
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void deleteProjectsTest(){
-		List<Integer> list = Arrays.asList(95,96,97,98,99,100);
+		List<Integer> list = Arrays.asList(6,7,8,9,10,11);
 		assertTrue(projectService.deleteByIds(list));
 		
 	}

@@ -20,7 +20,7 @@
 		select * from test_module 
 		<where>
 			<if test="moduleName != null and moduleName.trim() != ''">
-				and `module_name` like concat('%',#{moduleName},'%') 
+				and module_name like concat('%',#{moduleName},'%') 
 			</if>
 		</where>
 		<choose>
@@ -32,7 +32,7 @@
 			</otherwise>
 		</choose>
 		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+			limit #{limit} OFFSET #{offset}
 		</if>
 	</select>
 	
@@ -40,7 +40,7 @@
 		select count(*) from test_module
 		<where>
 			<if test="moduleName != null and moduleName.trim() != ''">
-				and `module_name` like concat('%',#{moduleName},'%') 
+				and module_name like concat('%',#{moduleName},'%') 
 			</if>
 		</where>
 	</select>
@@ -52,20 +52,18 @@
 	<insert id="save" parameterType="com.fortytwoq.mvc.model.TestModule" useGeneratedKeys="true" keyProperty="id">
     insert into test_module 
     (
-    	`id`, 
-     	`module_name`, 
-     	`parent_module_id`, 
-     	`project_id`, 
-      	`type`, 
-     	`sequence`, 
-     	`level`, 
-     	`enable`, 
-      	`create_date`, 
-      	`update_date`
+     	module_name, 
+     	parent_module_id, 
+     	project_id, 
+      	type, 
+     	sequence, 
+     	level, 
+     	enable, 
+      	create_date, 
+      	update_date
     )
     values 
     (
-    	#{id}, 
     	#{moduleName},
     	#{parentModuleId}, 
         #{projectId}, 
@@ -81,15 +79,15 @@
 	<update id="update" parameterType="com.fortytwoq.mvc.model.TestModule">
 		update test_module
 		<set> 
-			<if test="moduleName != null">`module_name` = #{moduleName}, </if>
-			<if test="parentModuleId != null">`parent_module_id` = #{parentModuleId}, </if>
-			<if test="projectId != null">`project_id` = #{projectId}, </if>
-			<if test="type != null">`type` = #{type}, </if>
-			<if test="sequence != null">`sequence` = #{sequence}, </if>
-			<if test="level != null">`level` = #{level}, </if>
-			<if test="enable != null">`enable` = #{enable}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="moduleName != null">module_name = #{moduleName}, </if>
+			<if test="parentModuleId != null">parent_module_id = #{parentModuleId}, </if>
+			<if test="projectId != null">project_id = #{projectId}, </if>
+			<if test="type != null">type = #{type}, </if>
+			<if test="sequence != null">sequence = #{sequence}, </if>
+			<if test="level != null">level = #{level}, </if>
+			<if test="enable != null">enable = #{enable}, </if>
+			<if test="createDate != null">create_date = #{createDate}, </if>
+			<if test="updateDate != null">update_date = #{updateDate}, </if>
 		</set>
 		where id = #{id}
 	</update>

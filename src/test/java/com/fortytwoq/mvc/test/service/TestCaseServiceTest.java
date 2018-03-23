@@ -15,13 +15,14 @@ import com.fortytwoq.mvc.model.TestCase;
 import com.fortytwoq.mvc.service.impl.TestCaseService;
 import com.fortytwoq.mvc.test.BaseJunit4Test;
 
-@Ignore
+//@Ignore
 public class TestCaseServiceTest extends BaseJunit4Test {
 
 	@Autowired
 	private TestCaseService testCaseService;
 	
 	@Test
+	@Ignore
 	public void addTestCaseTest(){
 		for(int i=0; i< 101; i++){
 			TestCase testCase = new TestCase();

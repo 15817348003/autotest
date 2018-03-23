@@ -229,7 +229,7 @@ public class Project implements Serializable {
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", projectName=" + projectName + ", projectCode=" + projectCode + ", enable="
-				+ enable + ", createDate=" + createDate + ", updateDate=" + updateDate + ", testModules=" + testModules.toString()
+				+ enable + ", createDate=" + createDate + ", updateDate=" + updateDate + ", testModules=" 
 				+ "]";
 	}
 
